@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 class ImageController extends Controller
@@ -35,6 +36,10 @@ class ImageController extends Controller
 
         $imageServer = Image::make($image);
         $imageServer->fit(1000, 1000);
+
+        if (!File::exists(public_path('uploads'))) {
+            File::makeDirectory(public_path('uploads'), 0755, true, true);
+        }
 
         $imagePath = public_path('uploads') . "/" . $imageName;
         $imageServer->save($imagePath);

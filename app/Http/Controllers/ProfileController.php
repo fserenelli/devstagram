@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
@@ -42,6 +43,10 @@ class ProfileController extends Controller
         ]);
 
         if ($request->image) {
+            if (!File::exists(public_path('profiles'))) {
+                File::makeDirectory(public_path('profiles'), 0755, true, true);
+            }
+
             $image = $request->file('image');
 
             $imageName = Str::uuid() . "." . $image->extension();
