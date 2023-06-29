@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\CommentController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FeedController;
-use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\RegisterController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,5 @@ Route::delete('/posts/{post}/likes', [LikeController::class, 'destroy'])->name('
 
 Route::post('/{user:username}/follow}', [FollowerController::class, 'store'])->name('users.follow');
 Route::delete('/{user:username}/unfollow}', [FollowerController::class, 'destroy'])->name('users.unfollow');
+
+Route::get('/linkstorage', function () { Artisan::call('storage:link'); });
